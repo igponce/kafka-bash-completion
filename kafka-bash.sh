@@ -8,12 +8,13 @@
 
 function __kafka_topics_sh () {
 
-   echo '--topic'
-   echo '--zookeeper'
-   echo '--alter'
-   echo '--config'
+    
+    local base_topics_ops="--topic|--alter|--zookeeper|--config"
 
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+	COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_topics_ops" -- $cur ) )
 
 }
 
-complete -F __kafka_topics_sh kafka-topics.sh
+complete -A alias -F __kafka_topics_sh kafka-topics.sh
