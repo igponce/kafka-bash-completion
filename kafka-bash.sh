@@ -9,11 +9,16 @@
 function __kafka_topics_sh () {
 
     
-    local base_topics_ops="--topic|--alter|--zookeeper|--config"
-
+    local base_topics_ops="--alter|--config|--create|--delete|--delete-config|--config|--describe|--disable-rack-aware|--force|--help|--if-exists|--if-not-exists|--list|--partitions|--replica-assignment|--replication-factor|--topic|--create|--topics-with-overrides|--unavailable-partitions|--under-replicated-partitions|--zookeeper"
+    local topic_configs="cleanup.policy|compression.type|delete.retention.ms|file.delete.delay.ms|flush.messages|flush.ms|follower.replication.throttled.replicas|index.interval.bytes|leader.replication.throttled.replicas|max.message.bytes|message.format.version|message.timestamp.difference.max.ms|message.timestamp.type|min.cleanable.dirty.ratio|min.compaction.lag.ms|min.insync.replicas|preallocate|retention.bytes|retention.ms|segment.bytes|segment.index.bytes|segment.jitter.ms|segment.ms|unclean.leader.election.enable"
+    
     local cur=${COMP_WORDS[COMP_CWORD]}
 
-	COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_topics_ops" -- $cur ) )
+    if [ "X$2" == "--config"] ; then
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$topics_configs" -- $cur ) )
+    else
+       COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_topics_ops" -- $cur ) )
+    fi
 
 }
 
