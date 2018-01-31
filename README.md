@@ -5,7 +5,7 @@ Bash programmable completions for the Kafka commands.
 
 Just because I am a bit tired of (mis)typing options in Kafka.
 
-For some software we can just start typing the comand and press <tab><tab> to get a reasonable list of completions; but not for Kafka... yet.
+For some software we can just start typing the comand and press "tab" "tab" to get a reasonable list of completions; but not for Kafka... yet.
 
 ![Screencast: From bash, type tab twice to trigger autocompletion](screencast1.gif "Screencast: From bash, type tab twice to trigger autocompletion")
 
