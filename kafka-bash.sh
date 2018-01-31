@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#
 # Kafka Bash Completion
 # Copyright 2018 Iñigo Gonzalez Ponce
 # 
@@ -15,10 +15,41 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 # We have one function for every command that provides autocompletion.
 # The function that configures autocompletion has the same name of the
 # command preceded by __ (double underscore)
+
+# Kafka 1.0 shell scripts
+# [ ] connect-distributed.sh
+# [ ] connect-standalone.sh
+# [X] kafka-acls.sh
+# [ ] kafka-broker-api-versions.sh
+# [X] kafka-configs.sh
+# [X] kafka-console-consumer.sh
+# [ ] kafka-console-producer.sh
+# [ ] kafka-consumer-groups.sh
+# [ ] kafka-consumer-perf-test.sh
+# [ ] kafka-delete-records.sh
+# [ ] kafka-log-dirs.sh
+# [ ] kafka-mirror-maker.sh
+# [ ] kafka-preferred-replica-election.sh
+# [ ] kafka-producer-perf-test.sh
+# [ ] kafka-reassign-partitions.sh
+# [ ] kafka-replay-log-producer.sh
+# [ ] kafka-replica-verification.sh
+# [ ] kafka-run-class.sh
+# [ ] kafka-server-start.sh
+# [ ] kafka-server-stop.sh
+# [ ] kafka-simple-consumer-shell.sh
+# [ ] kafka-streams-application-reset.sh
+# [ ] kafka-topics.sh
+# [ ] kafka-verifiable-consumer.sh
+# [ ] kafka-verifiable-producer.sh
+# [ ] trogdor.sh
+# [ ] zookeeper-security-migration.sh
+# [ ] zookeeper-server-start.sh
+# [ ] zookeeper-server-stop.sh
+# [ ] zookeeper-shell.sh
 
 function __kafka_acls_sh () {
     local base_ops="--add|--allow-host|--allow-principal|--authorizer|--authorizer-properties|--cluster|--consumer|--deny-host|--deny-principal|--force|--group|--help|--list|--operation|--producer|--remove|--topic"
@@ -26,6 +57,49 @@ function __kafka_acls_sh () {
 
     COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
 
+}
+
+
+# For Kafka 1.0
+
+function __kafka_configs_sh () {
+    local base_ops="--add-config|--alter|--delete-config|--describe|--entity-default|--entity-name|--entity-type|--force|--help|--zookeeper"
+    local base_config_ops="cleanup.policy|compression.type|delete.retention.ms|file.delete.delay.ms|flush.messages|flush.ms|follower.replication.throttled.replicas|index.interval.bytes|leader.replication.throttled.replicas|max.message.bytes|message.format.version|message.timestamp.difference.max.ms|message.timestamp.type|min.cleanable.dirty.ratio|min.compaction.lag.ms|min.insync.replicas|preallocate|retention.bytes|retention.ms|segment.bytes|segment.index.bytes|segment.jitter.ms|segment.ms|unclean.leader.election.enable|follower.replication.throttled.rate|leader.replication.throttled.rate|request_percentage|producer_byte_rate|SCRAM-SHA-256|SCRAM-SHA-512|consumer_byte_rate|request_percentage|producer_byte_rate|consumer_byte_rate"
+
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    if [ "X$3" != "X--help" ] ; then
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+    else
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_config_ops" -- $cur ) )
+    fi
+
+}
+
+# For Kafka 1.0
+
+function __kafka_console_consumer_sh () {
+
+    local base_ops="--blacklist|--bootstrap-server|--consumer-property|--consumer.config|--csv-reporter-enabled |--delete-consumer-offsets|--enable-systest-events|--formatter|--from-beginning|--group|--isolation-level|--key-deserializer|--max-messages|--metrics-dir|--new-consumer|--offset|--partition |--property|--skip-message-on-error|--timeout-ms|--topic|--value-deserializer|--whitelist|--zookeeper"
+    local isolation_level_ops="read_uncommited|read_commited"
+    local offset_ops="latest|earliest"
+
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    case "X$3" in 
+        "X--isolation-level")
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$isolation_level_ops" -- $cur ) )
+        ;;
+
+        "X--offset")
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$offset_ops" -- $cur ) )
+        ;;
+
+        *)
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+        ;;
+
+    esac
 }
 
 # For Kafka 1.0
@@ -41,7 +115,7 @@ function __kakfa_mirror_maker_sh () {
 
 # For Kafka 1.0
 
-function __kakfa_server_start_sh () {
+function __kafka_server_start_sh () {
     # ToDo --override add property=value ;-)
     local base_ops="--daemon|--override"
     local cur=${COMP_WORDS[COMP_CWORD]}
@@ -68,29 +142,12 @@ function __kafka_topics_sh () {
 }
 
 
-# For Kafka 1.0
-
-function __kafka_configs_sh () {
-
-
-    local base_ops="--add-config|--alter|--delete-config|--describe|--entity-default|--entity-name|--entity-type|--force|--help|--zookeeper"
-    local base_config_ops="cleanup.policy|compression.type|delete.retention.ms|file.delete.delay.ms|flush.messages|flush.ms|follower.replication.throttled.replicas|index.interval.bytes|leader.replication.throttled.replicas|max.message.bytes|message.format.version|message.timestamp.difference.max.ms|message.timestamp.type|min.cleanable.dirty.ratio|min.compaction.lag.ms|min.insync.replicas|preallocate|retention.bytes|retention.ms|segment.bytes|segment.index.bytes|segment.jitter.ms|segment.ms|unclean.leader.election.enable|follower.replication.throttled.rate|leader.replication.throttled.rate|request_percentage|producer_byte_rate|SCRAM-SHA-256|SCRAM-SHA-512|consumer_byte_rate|request_percentage|producer_byte_rate|consumer_byte_rate"
-
-    local cur=${COMP_WORDS[COMP_CWORD]}
-
-    if [ "X$3" != "X--help" ] ; then
-        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
-    else
-        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_config_ops" -- $cur ) )
-    fi
-
-}
-
 # Apply bash completions
 # If you don't need a completion (for whatever reason), just comment the line here.
 
-complete -A alias -F __kakfa_acls_sh kafka-acls.sh
-complete -A alias -F __kafka_configs_sh kafka-config.sh
+complete -A alias -F __kafka_acls_sh kafka-acls.sh
+complete -A alias -F __kafka_configs_sh kafka-configs.sh
+complete -A alias -F __kafka_console_consumer_sh kafka-console-consumer.sh
 complete -A alias -F __kakfa_mirror_maker_sh kafka-mirror-maker.sh
 complete -A alias -F __kakfa_server_start_sh kafka-server-start.sh
 complete -A alias -F __kafka_topics_sh kafka-topics.sh
