@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 # Kafka Bash Completion
 # Copyright 2018 Iñigo Gonzalez Ponce
@@ -20,6 +20,35 @@
 # The function that configures autocompletion has the same name of the
 # command preceded by __ (double underscore)
 
+function __kafka_acls_sh () {
+    local base_ops="--add|--allow-host|--allow-principal|--authorizer|--authorizer-properties|--cluster|--consumer|--deny-host|--deny-principal|--force|--group|--help|--list|--operation|--producer|--remove|--topic"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+
+}
+
+
+
+function __kakfa_mirror_maker_sh () {
+
+    local base_ops="--abort.on.send.failure|--blacklist|--consumer.config|--consumer.rebalance.listener|--help|--message.handler|--message.handler.args|--new.consumer|--num.streams|--offset.commit.interval.ms |--producer.config|--rebalance.listener.args|--whitelist"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+
+}
+
+
+function __kakfa_server_start_sh () {
+    # ToDo --override add property=value ;-)
+    local base_ops="--daemon|--override"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+}
+
+
 function __kafka_topics_sh () {
 
     
@@ -36,33 +65,27 @@ function __kafka_topics_sh () {
 
 }
 
-function __kakfa_server_start_sh () {
-    # ToDo --override add property=value ;-)
-    local base_ops="--daemon|--override"
+
+# Kafka Configs sh
+
+function __kafka_configs_sh () {
+
+
+    local base_ops="--add-config|--alter|--delete-config|--describe|--entity-default|--entity-name|--entity-type|--force|--help|--zookeeper"
+    local base_config_ops="cleanup.policy|compression.type|delete.retention.ms|file.delete.delay.ms|flush.messages|flush.ms|follower.replication.throttled.replicas|index.interval.bytes|leader.replication.throttled.replicas|max.message.bytes|message.format.version|message.timestamp.difference.max.ms|message.timestamp.type|min.cleanable.dirty.ratio|min.compaction.lag.ms|min.insync.replicas|preallocate|retention.bytes|retention.ms|segment.bytes|segment.index.bytes|segment.jitter.ms|segment.ms|unclean.leader.election.enable|follower.replication.throttled.rate|leader.replication.throttled.rate|request_percentage|producer_byte_rate|SCRAM-SHA-256|SCRAM-SHA-512|consumer_byte_rate|request_percentage|producer_byte_rate|consumer_byte_rate"
+
     local cur=${COMP_WORDS[COMP_CWORD]}
 
-    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
-}
-
-function __kakfa_mirror_maker_sh () {
-
-    local base_ops="--abort.on.send.failure|--blacklist|--consumer.config|--consumer.rebalance.listener|--help|--message.handler|--message.handler.args|--new.consumer|--num.streams|--offset.commit.interval.ms |--producer.config|--rebalance.listener.args|--whitelist"
-    local cur=${COMP_WORDS[COMP_CWORD]}
-
-    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
-
-}
-function __kafka_acls_sh () {
-    local base_ops="--add|--allow-host|--allow-principal|--authorizer|--authorizer-properties|--cluster|--consumer|--deny-host|--deny-principal|--force|--group|--help|--list|--operation|--producer|--remove|--topic"
-    local cur=${COMP_WORDS[COMP_CWORD]}
-
-    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+    if [ "X$3" != "X--help" ] ; then
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+    else
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_config_ops" -- $cur ) )
+    fi
 
 }
 
-complete -A alias -F __kafka_topics_sh kafka-topics.sh
-complete -A alias -F __kakfa_server_start_sh kafka-server-start.sh
-complete -A alias -F __kakfa_mirror_maker_sh kafka-mirror-maker.sh
 complete -A alias -F __kakfa_acls_sh kafka-acls.sh
-
-
+complete -A alias -F __kafka_configs_sh kafka-config.sh
+complete -A alias -F __kakfa_mirror_maker_sh kafka-mirror-maker.sh
+complete -A alias -F __kakfa_server_start_sh kafka-server-start.sh
+complete -A alias -F __kafka_topics_sh kafka-topics.sh
