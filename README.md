@@ -14,7 +14,7 @@ For some software we can just start typing the comand and press <tab><tab> to ge
 [ ] kafka-broker-api-versions.sh
 [X] kafka-configs.sh
 [X] kafka-console-consumer.sh
-[ ] kafka-console-producer.sh
+[X] kafka-console-producer.sh
 [ ] kafka-consumer-groups.sh
 [ ] kafka-consumer-perf-test.sh
 [ ] kafka-delete-records.sh

@@ -89,6 +89,17 @@ function __kafka_console_producer_sh () {
 
 # For Kafka 1.0
 
+function __kafka_consumer_groups_sh () {
+
+    local base_ops="--all-topics |--bootstrap-server|--by-duration|--command-config|--delete|--execute|--export|--from-file|--group|--list|--new-consumer|--reset-offsets|--shift-by|--timeout|--to-current|--to-datetime|--to-earliest|--to-latest|--to-offset|--topic|--zookeeper"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+
+}
+
+# For Kafka 1.0
+
 function __kakfa_mirror_maker_sh () {
 
     local base_ops="--abort.on.send.failure|--blacklist|--consumer.config|--consumer.rebalance.listener|--help|--message.handler|--message.handler.args|--new.consumer|--num.streams|--offset.commit.interval.ms |--producer.config|--rebalance.listener.args|--whitelist"
@@ -134,8 +145,11 @@ complete -A alias -F __kafka_acls_sh kafka-acls.sh
 complete -A alias -F __kafka_configs_sh kafka-configs.sh
 complete -A alias -F __kafka_console_consumer_sh kafka-console-consumer.sh
 complete -A alias -F __kafka_console_producer_sh kafka-console-producer.sh
+complete -A alias -F __kafka_consumer_groups_sh kafka-consumer-groups.sh
+
 complete -A alias -F __kakfa_mirror_maker_sh kafka-mirror-maker.sh
 complete -A alias -F __kakfa_server_start_sh kafka-server-start.sh
 complete -A alias -F __kafka_topics_sh kafka-topics.sh
+
 
 #EOF#
