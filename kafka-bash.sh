@@ -19,37 +19,6 @@
 # The function that configures autocompletion has the same name of the
 # command preceded by __ (double underscore)
 
-# Kafka 1.0 shell scripts
-# [ ] connect-distributed.sh
-# [ ] connect-standalone.sh
-# [X] kafka-acls.sh
-# [ ] kafka-broker-api-versions.sh
-# [X] kafka-configs.sh
-# [X] kafka-console-consumer.sh
-# [ ] kafka-console-producer.sh
-# [ ] kafka-consumer-groups.sh
-# [ ] kafka-consumer-perf-test.sh
-# [ ] kafka-delete-records.sh
-# [ ] kafka-log-dirs.sh
-# [ ] kafka-mirror-maker.sh
-# [ ] kafka-preferred-replica-election.sh
-# [ ] kafka-producer-perf-test.sh
-# [ ] kafka-reassign-partitions.sh
-# [ ] kafka-replay-log-producer.sh
-# [ ] kafka-replica-verification.sh
-# [ ] kafka-run-class.sh
-# [ ] kafka-server-start.sh
-# [ ] kafka-server-stop.sh
-# [ ] kafka-simple-consumer-shell.sh
-# [ ] kafka-streams-application-reset.sh
-# [ ] kafka-topics.sh
-# [ ] kafka-verifiable-consumer.sh
-# [ ] kafka-verifiable-producer.sh
-# [ ] trogdor.sh
-# [ ] zookeeper-security-migration.sh
-# [ ] zookeeper-server-start.sh
-# [ ] zookeeper-server-stop.sh
-# [ ] zookeeper-shell.sh
 
 function __kafka_acls_sh () {
     local base_ops="--add|--allow-host|--allow-principal|--authorizer|--authorizer-properties|--cluster|--consumer|--deny-host|--deny-principal|--force|--group|--help|--list|--operation|--producer|--remove|--topic"
@@ -104,6 +73,22 @@ function __kafka_console_consumer_sh () {
 
 # For Kafka 1.0
 
+function __kafka_console_producer_sh () {
+
+    local base_ops="--batch-size|--broker-list|--compression-codec|--key-serializer|--line-reader|--max-block-ms|--max-memory-bytes|--max-partition-memory-bytes|--message-send-max-retries|--metadata-expiry-ms|--old-producer|--producer-property--producer.config|--property|--queue-enqueuetimeout-ms|--queue-size|--request-required-acks|--request-timeout-ms|--retry-backoff-ms|--socket-buffer-size|--sync|--timeout|--topic|--value-serializer"
+    local compression_ops="gzip|snappy|lz4|none"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    if [ "X$3" == "X--compression-codec" ] ; then
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$compression_ops" -- $cur ) )
+    else
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+    fi
+
+} 
+
+# For Kafka 1.0
+
 function __kakfa_mirror_maker_sh () {
 
     local base_ops="--abort.on.send.failure|--blacklist|--consumer.config|--consumer.rebalance.listener|--help|--message.handler|--message.handler.args|--new.consumer|--num.streams|--offset.commit.interval.ms |--producer.config|--rebalance.listener.args|--whitelist"
@@ -148,6 +133,7 @@ function __kafka_topics_sh () {
 complete -A alias -F __kafka_acls_sh kafka-acls.sh
 complete -A alias -F __kafka_configs_sh kafka-configs.sh
 complete -A alias -F __kafka_console_consumer_sh kafka-console-consumer.sh
+complete -A alias -F __kafka_console_producer_sh kafka-console-producer.sh
 complete -A alias -F __kakfa_mirror_maker_sh kafka-mirror-maker.sh
 complete -A alias -F __kakfa_server_start_sh kafka-server-start.sh
 complete -A alias -F __kafka_topics_sh kafka-topics.sh
