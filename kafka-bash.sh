@@ -20,14 +20,30 @@
 # command preceded by __ (double underscore)
 
 
-function __kafka_acls_sh () {
-    local base_ops="--add|--allow-host|--allow-principal|--authorizer|--authorizer-properties|--cluster|--consumer|--deny-host|--deny-principal|--force|--group|--help|--list|--operation|--producer|--remove|--topic"
+function __connect_distributed_standalone () {
+    local base_ops="-daemon"
     local cur=${COMP_WORDS[COMP_CWORD]}
 
     COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
 
 }
 
+# For Kafka 1.0
+function __kafka_acls_sh () {
+    local base_ops="--add|--allow-host|--allow-principal|--authorizer|--authorizer-properties|--cluster|--consumer|--deny-host|--deny-principal|--force|--group|--help|--list|--operation|--producer|--remove|--topic"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+}
+
+# For Kafka 1.0
+
+function __kafka_broker_api_version () {
+    local base_ops="--bootstrap-server|--command-config"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+}
 
 # For Kafka 1.0
 
@@ -100,9 +116,30 @@ function __kafka_consumer_groups_sh () {
 
 # For Kafka 1.0
 
+function __kafka_consumer_perf_test_sh () {
+
+    local base_ops="--broker-list|--consumer.config|--date-format|--fetch-size|--from-latest|--group|--help|--hide-header|--messages|--new-consumer|--num-fetch-threads|--print-metrics|--reporting-interval|--show-detailed-stats|--socket-buffer-size|--threads|--topic|--zookeeper"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+}
+
+# For Kafka 1.0
+
 function __kafka_delete_records_sh () {
 
     local base_ops="--bootstrap-server|--command-config|--offset-json-file"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+
+}
+
+# For Kafka 1.0
+
+function __kakfa_log_dirs_sh () {
+
+    local base_ops="--bootstrap-server|--broker-list|--describe|--topic-list"
     local cur=${COMP_WORDS[COMP_CWORD]}
 
     COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
@@ -122,14 +159,86 @@ function __kakfa_mirror_maker_sh () {
 
 # For Kafka 1.0
 
+function __kafka_producer_perf_test_sh () {
+
+    local base_ops="--help|--num-records|--payload-delimiter|--payload-file|--print-metrics|--producer-props|--producer.config|--record-size|--throughput|--topic|--transaction-duration-ms|--transactional-id|-h"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+}
+
+# For Kafka 1.0
+
+function __kafka_reassing_partitions_sh () {
+
+    local base_ops="--bootstrap-server|--broker-list|--disable-rack-aware|--execute|--generate|--reassignment-json-fil|--throttle|--timeout|--topics-to-move-json-file|--verify|--zookeeper"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+}
+
+
+# For Kafka 1.0
+
+function __kafka_replay_log_producer_sh () {
+
+    local base_ops="--broker-list|--inputtopic|--messages|--outputtopic|--property|--reporting-interval|--sync|--threads|--zookeeper"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+}
+
+# For Kafka 1.0
+
+function __kafka_replica_verification_sh () {
+
+    local base_ops="--broker-list|--fetch-size|--max-wait-ms|--report-interval-ms|--time|--topic-white-list"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+}
+
+# For Kafka 1.0
+
+function __kafka_run_class_sh () {
+
+    local base_ops="-daemon|-name|-loggc"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+}
+
+
+# For Kafka 1.0
+
 function __kafka_server_start_sh () {
-    # ToDo --override add property=value ;-)
+
     local base_ops="--daemon|--override"
     local cur=${COMP_WORDS[COMP_CWORD]}
 
     COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
 }
 
+
+# Working (@Kafka 1.0) will be dropped in a future release following 0.11.0.0.
+
+function __kafka_simple_consumer_shell_sh () {
+
+    local base_ops="--broker-list|--clientId|--fetchsize|--formatter|--max-messages|--max-wait-ms|--no-wait-at-logend|--offset|--partition|--print-offsets|--property|--replica|--skip-message-on-error|--topic"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+}
+
+# For Kafka 1.0
+
+function __kafka_streams_application_reset_sh () {
+
+    local base_ops="--application-id|--bootstrap-servers|--config-file|--dry-run|--input-topics|--intermediate-topics|--zookeeper"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+}
 
 # For Kafka 1.0
 
@@ -181,20 +290,37 @@ function __kafka_verifiable_producer_sh () {
 }
 
 
+
 # Apply bash completions
 # If you don't need a completion (for whatever reason), just comment the line here.
 
-complete -A alias -F __kafka_acls_sh kafka-acls.sh
-complete -A alias -F __kafka_configs_sh kafka-configs.sh
-complete -A alias -F __kafka_console_consumer_sh kafka-console-consumer.sh
-complete -A alias -F __kafka_console_producer_sh kafka-console-producer.sh
-complete -A alias -F __kafka_consumer_groups_sh kafka-consumer-groups.sh
-complete -A alias -F __kafka_delete_records_sh kafka-delete-records.sh
+complete -A alias -F __connect_distributed_standalone connect-distributed.sh
+complete -A alias -F __connect_distributed_standalone connect-standalone.sh
 
-complete -A alias -F __kakfa_mirror_maker_sh kafka-mirror-maker.sh
-complete -A alias -F __kakfa_server_start_sh kafka-server-start.sh
-complete -A alias -F __kafka_topics_sh kafka-topics.sh
+complete -A alias -F __kafka_acls_sh                kafka-acls.sh
+complete -A alias -F __kafka_broker_api_version     kafka-broker-api-version.sh
+complete -A alias -F __kafka_configs_sh             kafka-configs.sh
+complete -A alias -F __kafka_consumer_perf_test_sh  kafka-consumer-perf-test.sh
+complete -A alias -F __kafka_console_consumer_sh    kafka-console-consumer.sh
+complete -A alias -F __kafka_console_producer_sh    kafka-console-producer.sh
+complete -A alias -F __kafka_consumer_groups_sh     kafka-consumer-groups.sh
+complete -A alias -F __kafka_delete_records_sh      kafka-delete-records.sh
+complete -A alias -F __kakfa_log_dirs_sh            kafka-log-dirs.sh
+complete -A alias -F __kakfa_mirror_maker_sh        kafka-mirror-maker.sh
+complete -A alias -F __kafka_preferred_replica_election_sh kafka-preferred-replica-election.sh
+complete -A alias -F __kafka_producer_perf_test_sh  kafka-producer-pref-test.sh
+complete -A alias -F __kafka_reassing_partitions_sh kafka-reassing-partitions.sh
+complete -A alias -F __kafka_replay_log_producer_sh kafka-replay-log-producer.sh
+complete -A alias -F __kafka_replica_verification_sh kafka-replica-verification.sh
+complete -A alias -F __kafka_run_class_sh           kafka-run-class.sh
+complete -A alias -F __kakfa_server_start_sh        kafka-server-start.sh
+complete -A alias -F __kafka_streams_application_reset_sh kafka-streams-application-reset.sh
+complete -A alias -F __kafka_topics_sh              kafka-topics.sh
 complete -A alias -F __kafka_verifiable_consumer_sh kafka-verifiable-consumer.sh
 complete -A alias -F __kafka_verifiable_producer_sh kafka-verifiable-producer.sh
+
+# Marked as deprecated from 0.11.0.0
+complete -A alias -F __kafka_simple_consumer_shell_sh kafka-simple-consumer-shell.sh
+
 
 #EOF#

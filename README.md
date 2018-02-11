@@ -11,31 +11,34 @@ For some software we can just start typing the comand and press "tab" "tab" to g
 
 ## Kafka 1.0 supported shell scripts
 
-- [ ] connect-distributed.sh
-- [ ] connect-standalone.sh
+- [X] connect-distributed.sh
+- [X] connect-standalone.sh
 - [X] kafka-acls.sh
-- [ ] kafka-broker-api-versions.sh
+- [X] kafka-broker-api-versions.sh
 - [X] kafka-configs.sh
 - [X] kafka-console-consumer.sh
 - [X] kafka-console-producer.sh
 - [X] kafka-consumer-groups.sh
-- [ ] kafka-consumer-perf-test.sh
-- [ ] kafka-delete-records.sh
+- [X] kafka-consumer-perf-test.sh
+- [X] kafka-delete-records.sh
 - [X] kafka-log-dirs.sh
-- [ ] kafka-mirror-maker.sh
-- [ ] kafka-preferred-replica-election.sh
-- [ ] kafka-producer-perf-test.sh
-- [ ] kafka-reassign-partitions.sh
-- [ ] kafka-replay-log-producer.sh
-- [ ] kafka-replica-verification.sh
-- [ ] kafka-run-class.sh
+- [X] kafka-mirror-maker.sh
+- [X] kafka-preferred-replica-election.sh
+- [X] kafka-producer-perf-test.sh
+- [X] kafka-reassign-partitions.sh
+- [X] kafka-replay-log-producer.sh
+- [X] kafka-replica-verification.sh
+- [X] kafka-run-class.sh
 - [X] kafka-server-start.sh
 - [X] kafka-server-stop.sh
-- [ ] kafka-simple-consumer-shell.sh
-- [ ] kafka-streams-application-reset.sh
-- [ ] kafka-topics.sh
-- [ ] kafka-verifiable-consumer.sh
-- [.] kafka-verifiable-producer.sh
+- [X] kafka-simple-consumer-shell.sh
+- [X] kafka-streams-application-reset.sh
+- [X] kafka-topics.sh
+- [X] kafka-verifiable-consumer.sh
+- [x] kafka-verifiable-producer.sh
+
+No support for this:
+
 - [ ] trogdor.sh
 - [ ] zookeeper-security-migration.sh
 - [ ] zookeeper-server-start.sh
