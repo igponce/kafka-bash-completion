@@ -100,6 +100,17 @@ function __kafka_consumer_groups_sh () {
 
 # For Kafka 1.0
 
+function __kafka_delete_records_sh () {
+
+    local base_ops="--bootstrap-server|--command-config|--offset-json-file"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+
+}
+
+# For Kafka 1.0
+
 function __kakfa_mirror_maker_sh () {
 
     local base_ops="--abort.on.send.failure|--blacklist|--consumer.config|--consumer.rebalance.listener|--help|--message.handler|--message.handler.args|--new.consumer|--num.streams|--offset.commit.interval.ms |--producer.config|--rebalance.listener.args|--whitelist"
@@ -137,6 +148,38 @@ function __kafka_topics_sh () {
 
 }
 
+# For Kafka 1.0
+function __kafka_verifiable_consumer_sh () {
+    local base_ops = "--assignment-strategy|--broker-list|--consumer.config|--enable-autocommit|--group-id|--help|--max-messages|--reset-policy|--session-timeout|--topic|--verbose|-h|"
+    local reset_policy_ops="earliest|latest|none"
+    local assingment_strategy_ops="org.apache.kafka.clients.consumer.RoundRobinAssignor|org.apache.kafka.clients.consumer.RangeAssignor"
+
+
+    case "X$3" in 
+        "X--reset-policy")
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$reset_policy_ops" -- $cur ) )
+        ;;
+
+        "X--assignment-strategy")
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$assingment_strategy_ops" -- $cur ) )
+        ;;
+
+        *)
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+
+        ;;
+    esac
+}
+
+# For Kafka 1.0
+
+function __kafka_verifiable_producer_sh () {
+    local base_ops = "--acks|--broker-list|--max-messages|--message-create-time|--producer.config|--throughput|--topic|--value-prefix|-h"
+    local cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+}
+
 
 # Apply bash completions
 # If you don't need a completion (for whatever reason), just comment the line here.
@@ -146,10 +189,12 @@ complete -A alias -F __kafka_configs_sh kafka-configs.sh
 complete -A alias -F __kafka_console_consumer_sh kafka-console-consumer.sh
 complete -A alias -F __kafka_console_producer_sh kafka-console-producer.sh
 complete -A alias -F __kafka_consumer_groups_sh kafka-consumer-groups.sh
+complete -A alias -F __kafka_delete_records_sh kafka-delete-records.sh
 
 complete -A alias -F __kakfa_mirror_maker_sh kafka-mirror-maker.sh
 complete -A alias -F __kakfa_server_start_sh kafka-server-start.sh
 complete -A alias -F __kafka_topics_sh kafka-topics.sh
-
+complete -A alias -F __kafka_verifiable_consumer_sh kafka-verifiable-consumer.sh
+complete -A alias -F __kafka_verifiable_producer_sh kafka-verifiable-producer.sh
 
 #EOF#

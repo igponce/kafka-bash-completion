@@ -35,7 +35,7 @@ For some software we can just start typing the comand and press "tab" "tab" to g
 - [ ] kafka-streams-application-reset.sh
 - [ ] kafka-topics.sh
 - [ ] kafka-verifiable-consumer.sh
-- [ ] kafka-verifiable-producer.sh
+- [.] kafka-verifiable-producer.sh
 - [ ] trogdor.sh
 - [ ] zookeeper-security-migration.sh
 - [ ] zookeeper-server-start.sh
