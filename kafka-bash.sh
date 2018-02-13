@@ -44,7 +44,7 @@ function __kafka_acls_sh () {
 
 # For Kafka 1.0
 
-function __kafka_broker_api_version () {
+function __kafka_broker_api_versions () {
     local base_ops="--bootstrap-server|--command-config"
     local cur=${COMP_WORDS[COMP_CWORD]}
 
@@ -304,7 +304,7 @@ complete -A alias -F __connect_distributed_standalone connect-distributed.sh
 complete -A alias -F __connect_distributed_standalone connect-standalone.sh
 
 complete -A alias -F __kafka_acls_sh                kafka-acls.sh
-complete -A alias -F __kafka_broker_api_version     kafka-broker-api-version.sh
+complete -A alias -F __kafka_broker_api_versions    kafka-broker-api-versions.sh
 complete -A alias -F __kafka_configs_sh             kafka-configs.sh
 complete -A alias -F __kafka_consumer_perf_test_sh  kafka-consumer-perf-test.sh
 complete -A alias -F __kafka_console_consumer_sh    kafka-console-consumer.sh
