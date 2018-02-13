@@ -59,7 +59,7 @@ function __kafka_configs_sh () {
 
     local cur=${COMP_WORDS[COMP_CWORD]}
 
-    if [ "X$3" != "X--help" ] ; then
+    if [ "X$3" != "X--add-config" ] ; then
         COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
     else
         COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_config_ops" -- $cur ) )
