@@ -30,10 +30,16 @@ function __connect_distributed_standalone () {
 
 # For Kafka 1.0
 function __kafka_acls_sh () {
-    local base_ops="--add|--allow-host|--allow-principal|--authorizer|--authorizer-properties|--cluster|--consumer|--deny-host|--deny-principal|--force|--group|--help|--list|--operation|--producer|--remove|--topic"
+    local base_ops="--add|--allow-host|--allow-principal|--authorizer|--authorizer-properties|--cluster|--consumer|--deny-host|--deny-principal|--force|--group|--help|--idempotent|--list|--operation|--producer|--remove|--topic"
+    local base_operation_ops="All|Alter|AlterConfigs|ClusterAction|Create|Delete|Describe|DescribeConfigs|IdempotentWrite|Read|Write"
     local cur=${COMP_WORDS[COMP_CWORD]}
 
-    COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+    if [ "X$3" != "X--operation" ] ; then
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_ops" -- $cur ) )
+    else
+        COMPREPLY=($(IFS='|' compgen -S ' ' -W "$base_operation_ops" -- $cur ) )
+    fi
+
 }
 
 # For Kafka 1.0
