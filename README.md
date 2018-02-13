@@ -1,13 +1,22 @@
 # kafka-bash-completion
 Bash programmable completions for the Kafka commands.
 
+## How to use?
+
+From bash, just type:
+
+```bash
+kafka-bash-completion> . ./kafka-bash.sh
+```
+
+![Screencast: From bash, type tab twice to trigger autocompletion](screencast1.gif "Screencast: From bash, type tab twice to trigger autocompletion")
+
 ## Why?
 
 Just because I am a bit tired of (mis)typing options in Kafka.
 
 For some software we can just start typing the comand and press "tab" "tab" to get a reasonable list of completions; but not for Kafka... yet.
 
-![Screencast: From bash, type tab twice to trigger autocompletion](screencast1.gif "Screencast: From bash, type tab twice to trigger autocompletion")
 
 ## Kafka 1.0 supported shell scripts
 
